@@ -1,0 +1,56 @@
+.container {
+    display: grid;
+    grid-template-columns: 10% 10% auto 10% 10%;
+    grid-template-rows: 30% auto 30%;
+    height: 100%;
+    font-family: roboto;
+    font-weight: 100;
+}
+
+.left {
+    grid-column-start: 1
+}
+
+.center {
+    grid-column-start: 3;
+    grid-row-start: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.right {
+    grid-column: 4 / span 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.timeline {
+    grid-column: 2 / span 3;
+    grid-row-start: 3;
+    position: relative;
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: thin;
+}
+
+.timelinepoint {
+    position: absolute;
+    top: -5px;
+}
+
+.point {
+    background: black;
+    min-height: 10px;
+    width: 10px;
+    border-radius: 5px;
+    top: -5px;
+}
+
+h2 {
+    font-weight: 300;
+}
+
