@@ -7,5 +7,5 @@ interface ICountdownProps {
     current: moment.Moment;
 }
 export const Countdown: React.SFC<ICountdownProps> = (props) => {
-    return <>{props.to.name} om {props.to.date.diff(props.current, 'days').toString()} dagar</>;
+    return <>{props.to.name} om {props.to.date.clone().endOf('day').diff(props.current, 'days').toString()} dagar</>;
 };

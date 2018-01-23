@@ -7,6 +7,8 @@ import { Countdown } from '../components/countdown';
 import { TimePoint } from '../models/timePoint';
 import { Timeline } from '../components/timeline';
 
+//const url = 'https://calendar.google.com/calendar/ical/q8qpukjudr7340vug9f6fce0nc%40group.calendar.google.com/private-1d3085236f05e376f7c7ec98211f41b7/basic.ics';
+//const url = 'https://www.googleapis.com/calendar/v3/calendars/q8qpukjudr7340vug9f6fce0nc@group.calendar.google.com/events'
 moment.locale('sv');
 
 interface IAppProps {
@@ -24,13 +26,17 @@ export class App extends React.Component<IAppProps, IAppState> {
             dates: [
                 new TimePoint('Inflytt', '2018-03-20'),
                 new TimePoint('Utflyttning', '2018-04-03'),
-                new TimePoint('Besiktning', '2018-03-07'),
+                new TimePoint('Besiktning', '2018-03-07 08:00'),
                 new TimePoint('Påsk', '2018-03-30'),
             ].sort((a,b) => a.date.diff(b.date))
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        // fetch(url)
+        //     .then(response => response.text()
+        //         .then(responseString => console.log(responseString)),
+        //     _errorObj => console.log("Fail", _errorObj));
         setInterval(() => {
             this.setState({now: moment()});
         }, 1000)

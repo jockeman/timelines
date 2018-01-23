@@ -45,6 +45,10 @@
     transform-origin: left;
 }
 
+.timelinelabel {
+    white-space: nowrap;
+}
+
 .point {
     background: black;
     height: 10px;

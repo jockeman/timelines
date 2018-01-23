@@ -4,8 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production parcel build src/index.html --no-minify --public-url /flytt"
+    "build": "cross-env NODE_ENV=production parcel build src/index.html --no-minify --public-url /flytt",
+    "dev": "cross-env NODE_ENV=development parcel src/index.html"
   },
+  "browserlist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "dependencies": {
     "moment": "^2.20.1",
     "react": "^16.2.0",

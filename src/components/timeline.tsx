@@ -25,6 +25,6 @@ export const TimelinePoint: React.SFC<ITimelinePointProps> = (props) => {
     const xpos = (props.date.date.unix()-props.min)/(props.max-props.min);
     return <div className="timelinepoint" style={{left: xpos*100 + '%'}}>
         <div className="point" />
-        {props.date.name}
+        <span className="timelinelabel">{props.date.name} {props.date.date.format("D/M HH:mm")}</span>
         </div>;
 };
