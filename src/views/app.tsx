@@ -25,6 +25,8 @@ export class App extends React.Component<IAppProps, IAppState> {
             now: moment(), 
             dates: [
                 new TimePoint('Inflytt', '2018-03-20'),
+                new TimePoint('Våffeldagen', '2018-03-25'),
+                new TimePoint('Fettisdagen', '2018-02-13'),
                 new TimePoint('Utflyttning', '2018-04-03'),
                 new TimePoint('Besiktning', '2018-03-07 08:00'),
                 new TimePoint('Påsk', '2018-03-30'),
