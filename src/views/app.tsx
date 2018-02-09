@@ -41,7 +41,7 @@ export class App extends React.Component<IAppProps, IAppState> {
         //     _errorObj => console.log("Fail", _errorObj));
         setInterval(() => {
             this.setState({now: moment()});
-        }, 1000)
+        }, 17)
     }
 
     render() {

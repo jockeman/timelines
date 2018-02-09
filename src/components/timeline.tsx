@@ -7,11 +7,12 @@ interface ITimelineProps {
     dates: TimePoint[];
 }
 export const Timeline: React.SFC<ITimelineProps> = (props) => {
-    const min = Math.min(props.dates[0].date.unix(), props.current.unix());
+    //const min = Math.min(props.dates[0].date.unix(), props.current.unix());
+    const min = props.current.unix();
     const max = props.dates[props.dates.length-1].date.unix();
 
     return <div>
-        {props.dates.map(d => <TimelinePoint key={d.name} min={min} max={max} date={d}/>)}
+        {props.dates.filter(d => d.date.unix() >= min).map(d => <TimelinePoint key={d.name} min={min} max={max} date={d}/>)}
         <TimelinePoint min={min} max={max} date={{name: 'Nu', date: props.current}}/>
     </div>;
 };
