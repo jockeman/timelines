@@ -2,7 +2,7 @@ import * as React from 'react';
 import moment from 'moment';
 import { TimePoint } from '../models/timePoint';
 
-enum CountdownMode {
+export enum CountdownMode {
     Day,
     Ms
 }
@@ -19,8 +19,10 @@ export const Countdown: React.SFC<ICountdownProps> = (props) => {
         case CountdownMode.Day:
             const days = props.to.date.clone().endOf('day').diff(props.current, 'day');
             if(days <= 1){
-                const hours = props.to.date.clone().diff(props.current, 'hour');
-                countdown = `${hours}:${props.to.date.clone().diff(props.current, 'minutes') - hours * 60}`
+                const hours = props.to.date.diff(props.current, 'hour');
+                const minutes = props.to.date.diff(props.current, 'minutes') - hours * 60;
+                const seconds = props.to.date.diff(props.current, 'seconds') - ((hours * 60 + minutes) * 60)
+                countdown = `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`
             } else {
                 countdown = days + ' dagar';
             }
