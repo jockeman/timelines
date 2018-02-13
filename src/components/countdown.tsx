@@ -15,6 +15,12 @@ interface ICountdownProps {
 export const Countdown: React.SFC<ICountdownProps> = (props) => {
     let mode = props.mode || CountdownMode.Day;
     let countdown = ""
+    if (props.to.date < props.current) {
+        const pastStyle: React.CSSProperties = {
+            color: "grey",
+            "text-decoration": "line-through"};
+        return <span style={pastStyle}>{props.to.name}</span>;
+    }
     switch (mode) {
         case CountdownMode.Day:
             const days = props.to.date.clone().endOf('day').diff(props.current, 'day');
