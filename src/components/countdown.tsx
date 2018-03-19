@@ -3,8 +3,8 @@ import moment from 'moment';
 import { TimePoint } from '../models/timePoint';
 
 export enum CountdownMode {
-    Day,
-    Ms
+    Day = 1,
+    Ms = 2
 }
 
 interface ICountdownProps {
@@ -13,7 +13,7 @@ interface ICountdownProps {
     mode?: CountdownMode;
 }
 export const Countdown: React.SFC<ICountdownProps> = (props) => {
-    let mode = props.mode || CountdownMode.Day;
+    let mode = props.mode || CountdownMode.Ms;
     let countdown = ""
     if (props.to.date < props.current) {
         const pastStyle: React.CSSProperties = {
