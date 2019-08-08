@@ -1,61 +1,75 @@
-import * as React from 'react';
-import moment from 'moment';
-import 'moment/locale/sv';
+import * as React from "react";
 
-import "./app.css"
-import { Countdown } from '../components/countdown';
-import { TimePoint } from '../models/timePoint';
-import { Timeline } from '../components/timeline';
+import "./app.css";
+import { Countdown, CountdownMode } from "../components/countdown";
+import { TimePoint } from "../models/timePoint";
+import { Timeline } from "../components/timeline";
+import { DateTime } from "luxon";
 
-//const url = 'https://calendar.google.com/calendar/ical/q8qpukjudr7340vug9f6fce0nc%40group.calendar.google.com/private-1d3085236f05e376f7c7ec98211f41b7/basic.ics';
-//const url = 'https://www.googleapis.com/calendar/v3/calendars/q8qpukjudr7340vug9f6fce0nc@group.calendar.google.com/events'
-moment.locale('sv');
-
-interface IAppProps {
-}
+interface IAppProps {}
 interface IAppState {
-    now: moment.Moment;
-    dates: TimePoint[]
+  now: DateTime;
+  dates: TimePoint[];
 }
 
 export class App extends React.Component<IAppProps, IAppState> {
-    constructor(props: IAppProps) {
-        super(props);
-        this.state = {
-            now: moment(), 
-            dates: [
-                new TimePoint('Inflytt', '2018-03-20 08:30'),
-                new TimePoint('Våffeldagen', '2018-03-25'),
-                new TimePoint('Fettisdagen', '2018-02-13'),
-                new TimePoint('Utflyttning', '2018-04-03'),
-                new TimePoint('Besiktning', '2018-03-07 08:00'),
-                new TimePoint('Påsk', '2018-03-30'),
-            ].sort((a,b) => a.date.diff(b.date))
-        }
-    }
+  constructor(props: IAppProps) {
+    super(props);
+    this.state = {
+      now: DateTime.local(),
+      dates: [
+        new TimePoint("Helg", "2019-07-05T17:00"),
+        new TimePoint("Helg", "2019-07-12T17:00"),
+        new TimePoint("Helg", "2019-07-19T17:00"),
+        new TimePoint("Helg", "2019-07-26T17:00"),
+        new TimePoint("Helg", "2019-08-02T17:00"),
+        new TimePoint("Semester", "2019-08-09T16:00"),
+        new TimePoint("BF", "2019-08-21")
+      ]
+    };
+  }
 
-    componentDidMount() {
-        // fetch(url)
-        //     .then(response => response.text()
-        //         .then(responseString => console.log(responseString)),
-        //     _errorObj => console.log("Fail", _errorObj));
-        setInterval(() => {
-            this.setState({now: moment()});
-        }, 17)
-    }
+  componentDidMount(): void {
+    setInterval(() => {
+      this.setState({ now: DateTime.local() });
+    }, 17);
+  }
 
-    render() {
-        const inflytt = this.state.dates.filter(d => d.name === 'Inflytt')[0];
-        return <div className="container">
-            <div className="center">
-                <h2><Countdown current={this.state.now} to={inflytt}/></h2>
-            </div>
-            <div className="right">
-                {this.state.dates.map(d => <li key={d.name}><Countdown current={this.state.now} to={d}/></li>)}
-            </div>
-            <div className="timeline">
-                <Timeline current={this.state.now} dates={this.state.dates} />
-            </div>
-        </div>;
-    }
+  render(): JSX.Element {
+    const { dates } = this.state;
+    const dates2: TimePoint[] = dates
+      .concat([
+        new TimePoint(
+          "Hemgång",
+          DateTime.local()
+            .set({ hour: 17, minute: 0, millisecond: 0 })
+            .toISO()
+        )
+      ])
+      .sort((a, b) => a.date.diff(b.date).valueOf());
+    const main: TimePoint = dates.filter(d => d.name === "BF")[0];
+    return (
+      <div className="container">
+        <div className="center">
+          <h2>
+            <Countdown current={this.state.now} to={main} />
+          </h2>
+        </div>
+        <div className="right">
+          {dates2.map(d => (
+            <li key={d.name + d.date.toString()}>
+              <Countdown
+                mode={CountdownMode.Day}
+                current={this.state.now}
+                to={d}
+              />
+            </li>
+          ))}
+        </div>
+        <div className="timeline">
+          <Timeline current={this.state.now} dates={dates2} />
+        </div>
+      </div>
+    );
+  }
 }

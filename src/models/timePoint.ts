@@ -1,10 +1,9 @@
-import moment from 'moment';
-
+import { DateTime } from "luxon";
 export class TimePoint {
-    date: moment.Moment;
-    name: string
-    constructor(name: string, date: string){
-        this.date = moment(date);
+    date: DateTime;
+    name: string;
+    constructor(name: string, date: string) {
+        this.date = DateTime.fromISO(date);
         this.name = name;
     }
 }
